@@ -1,6 +1,8 @@
 # jsonj-integration
 
-This ruby module is intended to be used with jruby and aims to provide seemless integration of the functionality in my Java based "jsonj":"https://github.com/jillesvangurp/jsonj" project.
+This ruby module is intended to be used with jruby and aims to provide seemless integration of the functionality in my Java based "jsonj":"https://github.com/jillesvangurp/jsonj" project. 
+
+Needless to say there is no point in running this if you are not using jruby.
 
 Using this is useful on mixed jruby and java projects where some of the Java code uses jsonj; as is the case in Localstream, the company I am the co-founder of. In Localstream we use this extensively in our Sinatra based API layer that needs to parse, validate, and manipulate json objects and then call the Java backend services which accept and return JsonObject instances.
 
@@ -22,6 +24,8 @@ After that, you can run
 </pre>	
 
 Using jsonj after that is pretty easy. The rspec file provides several examples.
+
+The gem will only install the jsonj module and it is up to you to provision the jsonj jar file + dependencies in whichever way you prefer. 
 
 # License
 
