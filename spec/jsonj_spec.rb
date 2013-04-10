@@ -39,6 +39,10 @@ describe 'jsonj integration' do
       dict['y'][2].should eq 3
       dict['y'][3].should eq 'four'
     end
+    
+    it 'should return nil for non existing elements' do
+      dict['idontexist'].should eq nil
+    end
   end
   
   describe "put using []" do
@@ -68,6 +72,11 @@ describe 'jsonj integration' do
       l=JsonArray.new
       l << 42
       l[0].should eq 42
+    end    
+
+    it 'should assign nil correctly' do
+      o=JsonObject.new
+      o['nilelement'] = nil
     end
   end
 end

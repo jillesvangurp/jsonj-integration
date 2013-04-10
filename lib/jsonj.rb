@@ -63,7 +63,7 @@ end
 
 JsonObject.send(:define_method, '[]') do |key|
   val = self.get(key)
-  if val.isPrimitive
+  if val && val.isPrimitive
     case val.type.to_s
     when 'string'
       val.asString
@@ -81,7 +81,7 @@ end
 
 JsonArray.send(:define_method, '[]') do |key|
   val = self.get(key)
-  if val.isPrimitive
+  if val && val.isPrimitive
     case val.type.to_s
     when 'string'
       val.asString
