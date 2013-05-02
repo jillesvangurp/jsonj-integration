@@ -8,9 +8,11 @@
 #
 java_import com.github.jsonj.JsonObject
 java_import com.github.jsonj.JsonArray
+java_import com.github.jsonj.JsonSet
 java_import com.github.jsonj.JsonPrimitive
 java_import com.github.jsonj.JsonType
 java_import com.github.jsonj.tools.JsonBuilder
+
 
 # this function is injected into JsonElement subclasses
 def convertToRuby(value)
@@ -48,9 +50,30 @@ JsonArray.send(:define_method, 'to_s') do
   tos self
 end
 
+JsonSet.send(:define_method, 'to_s') do 
+  tos self
+end
+
 JsonPrimitive.send(:define_method, 'to_s') do 
   tos self
 end
+
+JsonObject.send(:define_method, 'to_json') do 
+  tos self
+end
+
+JsonArray.send(:define_method, 'to_json') do 
+  tos self
+end
+
+JsonSet.send(:define_method, 'to_json') do 
+  tos self
+end
+
+JsonPrimitive.send(:define_method, 'to_json') do 
+  tos self
+end
+
 
 JsonObject.send(:define_method, 'toRuby') do 
   convertToRuby self
@@ -59,7 +82,6 @@ end
 JsonObject.send(:define_method, '[]=') do |key,value|
   self.put(key.to_s,JsonBuilder::fromObject(value))
 end
-
 
 JsonObject.send(:define_method, '[]') do |key|
   val = self.get(key)
@@ -97,7 +119,29 @@ JsonArray.send(:define_method, '[]') do |key|
   end
 end
 
+JsonSet.send(:define_method, '[]') do |key|
+  val = self.get(key)
+  if val && val.isPrimitive
+    case val.type.to_s
+    when 'string'
+      val.asString
+    when 'number'
+      val.asDouble
+    when 'bool'
+      val.asBoolean
+    when 'nullValue'
+      nil
+    end
+  else
+    val
+  end
+end
+
 JsonArray.send(:define_method, '[]=') do |index,value|
+  self.set(index,JsonBuilder::fromObject(value))
+end
+
+JsonSet.send(:define_method, '[]=') do |index,value|
   self.set(index,JsonBuilder::fromObject(value))
 end
 
@@ -105,7 +149,15 @@ JsonArray.send(:define_method, '<<') do |value|
   self.add(JsonBuilder::fromObject(value))
 end
 
+JsonSet.send(:define_method, '<<') do |value|
+  self.add(JsonBuilder::fromObject(value))
+end
+
 JsonArray.send(:define_method, 'toRuby') do 
+  convertToRuby self
+end
+
+JsonSet.send(:define_method, 'toRuby') do 
   convertToRuby self
 end
 
