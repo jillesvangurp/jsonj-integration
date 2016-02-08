@@ -32,3 +32,7 @@ The gem will only install the jsonj module and it is up to you to provision the 
 This code is licensed under the expat license. See the LICENSE file for details.
         
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jillesvangurp/jsonj-integration/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
